@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .slider {
+            position: relative;
+            width: 300px;
+            overflow: hidden;
+        }
+
+        .slider-images {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .slider-image {
+            width: 300px;
+            height: 200px;
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #888;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .slider-dot.active {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="slider">
+        <div class="slider-images">
+            <img class="slider-image" src="images/images (1).png" alt="Image 1">
+            <img class="slider-image" src="images/main.jpeg" alt="Image 2">
+            <img class="slider-image" src="images/nav-image.jpg" alt="Image 3">
+        </div>
+        <div class="slider-dots">
+            <div class="slider-dot"></div>
+            <div class="slider-dot"></div>
+            <div class="slider-dot"></div>
+        </div>
+    </div>
+
+    <script>
+        const sliderImages = document.querySelector('.slider-images');
+        const sliderDots = document.querySelectorAll('.slider-dot');
+
+        let currentIndex = 0;
+
+        function updateSlider() {
+            sliderImages.style.transform = `translateX(-${currentIndex * 300}px)`;
+            sliderDots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        sliderDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                updateSlider();
+            });
+        });
+
+        function nextSlide() {
+            if (currentIndex < 2) {
+                currentIndex++;
+            } else {
+                currentIndex = 0;
+            }
+            updateSlider();
+        }
+
+        // You can also add a function for previousSlide if needed
+
+        // Automatically advance the slider
+        setInterval(nextSlide, 3000);
+    </script>
+</body>
+</html>
